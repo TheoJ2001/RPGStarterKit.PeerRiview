@@ -49,17 +49,13 @@ public class PlayerMovement : MonoBehaviour
     {
         if ((movmentInput.x != 0 || movmentInput.y != 0) && IsGrounded())
         {
-            Vector3 unRotated = Vector3.zero;
-            unRotated.x = movmentInput.x;
-            unRotated.z = movmentInput.y;
-            movmentVector = transform.rotation * unRotated;
+            Vector3 movmentVector = Vector3.zero;
+            movmentVector += transform.right * movmentInput.x;
+            movmentVector += transform.forward * movmentInput.y;
+            movmentVector.y = 0;
 
             movmentVector.Normalize();
-
             movmentVector *= movmentSpeed;
-
-
-
 
             if (rigidbody.linearVelocity.magnitude < movmentSpeed)
                 rigidbody.linearVelocity += movmentVector * Time.fixedDeltaTime;
